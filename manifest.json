@@ -1,0 +1,15 @@
+{
+    "name": "SurfQuest",
+    "version": "1.0.0",
+    "description": "Your personal assistant that makes surfing the web effortless.",
+    "manifest_version": 3,
+    "author": "Mahasvin S.",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "SurfQuest"
+    },
+    "permissions": [
+        "tabs",
+        "scripting"
+    ]
+}
