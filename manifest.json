@@ -9,7 +9,15 @@
         "default_title": "SurfQuest"
     },
     "permissions": [
-        "tabs",
-        "scripting"
-    ]
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "surfquest-logo.png",
+        "32": "surfquest-logo.png",
+        "48": "surfquest-logo.png",
+        "128": "surfquest-logo.png"
+    }
 }
