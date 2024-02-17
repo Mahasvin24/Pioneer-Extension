@@ -6,7 +6,8 @@ let recent4 = "";
 let recent5 = "";
 
 function updateRecentTabs(newRecent) {
-  if (recent1 === newRecent || recent2 === newRecent || recent3 === newRecent) return;
+  if (recent1 === newRecent || recent2 === newRecent || recent3 === newRecent)
+    return;
   recent5 = recent4;
   recent4 = recent3;
   recent3 = recent2;
@@ -20,20 +21,21 @@ function getPrompt() {
 
 // Move the event listener registration outside setTimeout
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    // DEBUG: console.log("OUTSIDE: chrome.tabs.onUpdated", tabId, changeInfo);
-    if (changeInfo.url) {
-        awaitTitle = true;
-    } if (changeInfo.title) {
-        updateRecentTabs(changeInfo.title);
-        console.log(getPrompt());
-        awaitTitle = false;
-    }
+  // DEBUG: console.log("OUTSIDE: chrome.tabs.onUpdated", tabId, changeInfo);
+  if (changeInfo.url) {
+    awaitTitle = true;
+  }
+  if (changeInfo.title) {
+    updateRecentTabs(changeInfo.title);
+    console.log(getPrompt());
+    awaitTitle = false;
+  }
 });
 
-chrome.runtime.onInstalled.addListener(({reason}) => {
-  if (reason == 'install') {
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+  if (reason == "install") {
     chrome.tabs.create({
-      url: "onboarding.html"
+      url: "onboarding.html",
     });
   }
 });

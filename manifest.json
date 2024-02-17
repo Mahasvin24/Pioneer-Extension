@@ -1,24 +1,21 @@
 {
-    "name": "SurfQuest",
-    "version": "1.0.0",
-    "description": "Your personal assistant that makes surfing the web effortless.",
-    "manifest_version": 3,
-    "author": "Mahasvin S.",
-    "action": {
-        "default_popup": "index.html",
-        "default_title": "SurfQuest"
-    },
-    "permissions": [
-        "tabs",
-        "activeTab"
-    ],
-    "background": {
-        "service_worker": "background.js"
-    },
-    "icons": {
-        "16": "surfquest-logo.png",
-        "32": "surfquest-logo.png",
-        "48": "surfquest-logo.png",
-        "128": "surfquest-logo.png"
-    }
+  "name": "SurfQuest",
+  "version": "1.0.0",
+  "description": "Your personal assistant that makes surfing the web effortless.",
+  "manifest_version": 3,
+  "author": "Mahasvin S.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "SurfQuest"
+  },
+  "permissions": ["tabs", "activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "surfquest-logo.png",
+    "32": "surfquest-logo.png",
+    "48": "surfquest-logo.png",
+    "128": "surfquest-logo.png"
+  }
 }
