@@ -1,36 +1,39 @@
-let openedTabsString = ""; // Initialize an empty string to store tab details
-let intervalId; // Declare intervalId variable outside the functions to access it globally
+let awaitTitle = true;
+let recent1 = "";
+let recent2 = "";
+let recent3 = "";
+let recent4 = "";
+let recent5 = "";
 
-/* Getting the current tab */
-async function getCurrentTab() {
-    let queryOptions = { active: true, lastFocusedWindow: true };
-    let [tab] = await chrome.tabs.query(queryOptions);
-    return tab;
+function updateRecentTabs(newRecent) {
+  if (recent1 === newRecent || recent2 === newRecent || recent3 === newRecent) return;
+  recent5 = recent4;
+  recent4 = recent3;
+  recent3 = recent2;
+  recent2 = recent1;
+  recent1 = newRecent;
 }
 
-/* Logging the current tab */
-async function logCurrentTab() {
-    let currentTab = await getCurrentTab();
-    openedTabsString += `Title: ${currentTab.title}, URL: ${currentTab.url}\n`; // Concatenate tab details
-    console.log(openedTabsString);
+function getPrompt() {
+  return `"${recent5}", "${recent4}", "${recent3}", "${recent2}", "${recent1}"`;
 }
 
-/* Start logging every 5 seconds */
-function startLogging() {
-    intervalId = setInterval(logCurrentTab, 5000);
-}
-
-/* Stop logging */
-function stopLogging() {
-    clearInterval(intervalId);
-}
-
-/* Start logging when the extension is installed */
-chrome.runtime.onInstalled.addListener(() => {
-    startLogging();
+// Move the event listener registration outside setTimeout
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    // DEBUG: console.log("OUTSIDE: chrome.tabs.onUpdated", tabId, changeInfo);
+    if (changeInfo.url) {
+        awaitTitle = true;
+    } if (changeInfo.title) {
+        updateRecentTabs(changeInfo.title);
+        console.log(getPrompt());
+        awaitTitle = false;
+    }
 });
 
-/* Stop logging when the extension is uninstalled */
-chrome.runtime.onUninstalled.addListener(() => {
-    stopLogging();
+chrome.runtime.onInstalled.addListener(({reason}) => {
+  if (reason === 'install') {
+    chrome.tabs.create({
+      url: "onboarding.html"
+    });
+  }
 });
